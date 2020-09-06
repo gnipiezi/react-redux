@@ -38,7 +38,15 @@ class App extends React.Component {
 
       )
 
-    }   
+    } 
+    onDeleteCompleted = ()  => {
+        this.setState( (prevState) => {
+          let filtered  =   prevState.tasks.filter( (item) => !item.completed  );
+            return {
+              tasks : filtered
+            }
+        } );
+    }  
 
     render(){
       return (
@@ -49,7 +57,7 @@ class App extends React.Component {
                 <Route  path="/:filter?"   render={(props) => ( <ToDoList   {...props} tasks={this.state.tasks}  onTaskCompleted = {this.onTaskCompleted} />) }  />
               </Switch>
             
-            <Footer />
+            <Footer   onDeleteCompleted = {this.onDeleteCompleted} />
             </BrowserRouter>
         </section>
       )
