@@ -5,10 +5,25 @@ import Footer from "../Footer";
 import { BrowserRouter , Route , Switch  } from "react-router-dom";
 import initialData from '../../constants/task';
 import  uniqueid  from  "uniqueid";
-
+import Fetching from  "../Fetching";
 class App extends React.Component {
     state = {
-      tasks : initialData  
+      tasks : [] ,
+      fetching : true  
+    }
+
+    componentDidMount(){
+      let  delay = Math.floor(Math.random() * 5000);
+      setTimeout(() => {
+        this.setState(prevState => (
+          {
+             tasks : initialData,
+             fetching : false
+          }
+        ) )
+
+      }, delay )
+
     }
     onTaskCompleted =  (taskId) => {
       let task = initialData.find( (item) => item.id  === taskId  );
@@ -51,6 +66,7 @@ class App extends React.Component {
     render(){
       return (
         <section id="todo">
+          {this.state.fetching ? <Fetching /> : null}
             <BrowserRouter>
               <Switch>
                 <Route  path="/add-task"  render={ (props) => ( <AddTask {...props}  onAddTask = {this.onAddTask}  /> )  } />
