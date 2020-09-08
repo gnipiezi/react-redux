@@ -26,7 +26,7 @@ class App extends React.Component {
 
     }
     onTaskCompleted =  (taskId) => {
-      let task = initialData.find( (item) => item.id  === taskId  );
+      let task = this.state.tasks.find( (item) => item.id  === taskId  );
       task.completed = !task.completed ; 
       this.setState(  
          prevState => (
